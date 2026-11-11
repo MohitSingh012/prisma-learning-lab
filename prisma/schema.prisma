@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -8,10 +7,17 @@ datasource db {
   provider = "postgresql"
 }
 
-// First Prisma model
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
   email     String   @unique
+  age       Int?
+  salary    Decimal  @db.Decimal(10, 2)
+  isActive  Boolean  @default(true)
+  bio       String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
