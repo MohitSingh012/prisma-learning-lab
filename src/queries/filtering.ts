@@ -98,6 +98,65 @@ const notUsers = await prisma.user.findMany({
 console.log("NOT results:", notUsers);
 
 
+// =====================================
+// 3. SORTING WITH ORDERBY
+// =====================================
+
+const sortedUsers = await prisma.user.findMany({
+  orderBy: {
+    salary: "desc"
+  }
+});
+
+console.log("Sorted users:", sortedUsers);
+
+
+// Sort by multiple fields
+const multiSortedUsers = await prisma.user.findMany({
+  orderBy: [
+    { salary: "desc" },
+    { firstName: "asc" }
+  ]
+});
+
+console.log("Multi-sorted users:", multiSortedUsers);
+
+
+// =====================================
+// 4. PAGINATION
+// =====================================
+
+const page1 = await prisma.user.findMany({
+  skip: 0,
+  take: 10
+});
+
+console.log("Page 1:", page1);
+
+
+const page2 = await prisma.user.findMany({
+  skip: 10,
+  take: 10
+});
+
+console.log("Page 2:", page2);
+
+
+// =====================================
+// 5. SELECT SPECIFIC FIELDS
+// =====================================
+
+const selectedUsers = await prisma.user.findMany({
+  select: {
+    id: true,
+    firstName: true,
+    email: true
+  }
+});
+
+console.log("Selected users:", selectedUsers);
+
+
 }
 
 main()
