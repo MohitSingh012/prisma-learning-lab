@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime @updatedAt
   profile   Profile?
   posts     Post[]
+  courses   Course[]
 
   @@map("users")
 }
@@ -43,4 +44,13 @@ model Post {
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
+}
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  title     String
+  code      String   @unique
+  createdAt DateTime @default(now())
+
+  users User[]
 }
